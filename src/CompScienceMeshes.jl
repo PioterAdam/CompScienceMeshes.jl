@@ -84,6 +84,7 @@ export trgauss, sqgauss, legendre
 export SegmentedAxis
 export minmaxdist, rings, ring
 
+export CurvilinearMesh, CurvilinearSimplex, mesh_order
 using SparseArrays
 
 Pt{N,T} = StaticArrays.SVector{N,T}
@@ -103,6 +104,7 @@ include("quadrature/SquareGauss.jl")
 # mesh component
 include("mesh.jl")
 include("scomplex.jl")
+
 include("meshes/flippedmesh.jl")
 include("meshes/embedding.jl")
 include("meshes/twosided.jl")
@@ -113,6 +115,7 @@ include("subdMesh.jl")
 # simplices and related algorithms
 include("rectangle.jl")
 include("charts.jl")
+
 include("charts/quadrilateral.jl")
 include("subd_chart.jl")
 include("sphere.jl")
@@ -121,7 +124,19 @@ include("intersect.jl")
 include("isinside.jl")
 include("findchart.jl")
 include("neighborhood.jl")
+
+#include("meshes/edgechart_neighborhood.jl")  # hooks EdgeChart into NeighborhoodLazy
+# SAFE guard (skips the include when EdgeChart doesn’t exist):
+#if isdefined(@__MODULE__, :EdgeChart)
+#    include("meshes/edgechart_neighborhood.jl")
+#end
+
+
 include("subd_neighborhood.jl")
+
+
+include("meshes/curvilinearmesh.jl")
+include("meshes/curvilinear_simplex_neighborhood.jl")
 include("quadpoints.jl")
 
 include("submesh.jl")
