@@ -85,6 +85,9 @@ export SegmentedAxis
 export minmaxdist, rings, ring
 
 export CurvilinearMesh, CurvilinearSimplex, mesh_order
+export refnodes, paramdim  # helpers used by quadpoints/neighborhood
+export simplex, center, vertices, nodes
+
 using SparseArrays
 
 Pt{N,T} = StaticArrays.SVector{N,T}

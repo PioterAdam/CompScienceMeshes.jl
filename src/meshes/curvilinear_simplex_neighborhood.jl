@@ -10,12 +10,6 @@ function getproperty(nb::NeighborhoodLazy, s::Symbol)
     return getfield(nb, s)
 end
 
-# Neighborhood constructors for any 1D simplex
-#neighborhood(ch::AbstractSimplex{U,1}, u::SVector{1,<:Real}) where {U} = NeighborhoodLazy(ch, u)
-#neighborhood(ch::AbstractSimplex{U,1}, u::Real)              where {U} = NeighborhoodLazy(ch, SVector(u))
-# barycentric ↔ cartesian on the chart
-#barytocart(ch::AbstractSimplex{U,1}, u::SVector{1,<:Real}) where {U} = map(ch, u[1])
-
 # Curvilinear only (no overlap with straight Simplex)
 neighborhood(ch::CurvilinearSimplex{U,1}, u::SVector{1,<:Real}) where {U} =
     NeighborhoodLazy(ch, u)
@@ -40,6 +34,7 @@ end
 function normal(ch::AbstractSimplex{2,1}, u::SVector{1,<:Real})
     t  = dmap(ch, u[1])
     nt = SVector(-t[2], t[1])
+    #nt = SVector(t[2], -t[1])
     nt / norm(nt)
 end
 
